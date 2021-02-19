@@ -2,6 +2,7 @@ package com.alten.opencvocr.service;
 
 import com.alten.opencvocr.entity.InputImage;
 import com.alten.opencvocr.repository.InputImageRepository;
+import com.alten.opencvocr.service.opencv.FaceDetection;
 import com.alten.opencvocr.service.tasseract.OCR;
 import net.sourceforge.tess4j.TesseractException;
 import org.slf4j.Logger;
@@ -41,7 +42,29 @@ public class InputImageService {
         inputImageRepository.save(inputImage);
 
         OCR ocr = new OCR(path, name);
+    }
 
+    public void saveImageForFaceRecon(MultipartFile image, String name){
+        InputImage inputImage = new InputImage();
+        String imageName = StringUtils.cleanPath(image.getOriginalFilename());
+        String path = "C:/Users/seven/Desktop/REACT-NATIVE/springBootFileReceiver/inFiles/"+ name +".jpg";
+        String targetPath = "C:/Users/seven/Desktop/REACT-NATIVE/springBootFileReceiver/outFiles/"+ name +".jpg";
+
+        if(imageName.contains("..")){
+            System.out.println("Not a valid image name or file");
+        }try{
+
+            inputImage.setImage(Base64.getEncoder().encodeToString(image.getBytes()));
+            File file = new File(path);
+            image.transferTo(file);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        inputImage.setName(name);
+        logger.info("File name : "+name+"");
+        inputImageRepository.save(inputImage);
+
+        FaceDetection.detectFace(path,targetPath);
 
     }
 }

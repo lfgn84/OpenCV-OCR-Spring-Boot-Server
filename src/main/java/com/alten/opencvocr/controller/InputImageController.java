@@ -20,4 +20,9 @@ public class InputImageController {
     public void loadImage(@RequestParam("image")MultipartFile image, String name) throws TesseractException, IOException {
         inputImageService.saveInputImage(image, name);
     }
+
+    @PostMapping("/faceRecon")
+    public void loadImageForFaceRecon(@RequestParam("image")MultipartFile image, String name){
+        inputImageService.saveImageForFaceRecon(image, name);
+    }
 }
