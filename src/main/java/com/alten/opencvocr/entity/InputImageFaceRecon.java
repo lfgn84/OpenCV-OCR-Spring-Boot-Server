@@ -1,28 +1,29 @@
 package com.alten.opencvocr.entity;
 
-
-
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
-public class InputImage {
+public class InputImageFaceRecon {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
 
     @Lob
-    private String image;
+    private byte[] image;
 
 
-    public InputImage(Long id, String name, String image) {
+
+    public InputImageFaceRecon(Long id, String name, byte[] image) {
         this.id = id;
         this.name = name;
         this.image = image;
     }
 
-    public InputImage() {
+    public InputImageFaceRecon() {
 
     }
 
@@ -42,11 +43,12 @@ public class InputImage {
         this.name = name;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }
+

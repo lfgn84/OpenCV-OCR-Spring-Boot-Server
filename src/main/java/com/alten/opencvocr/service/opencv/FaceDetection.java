@@ -9,6 +9,8 @@ import org.opencv.objdetect.Objdetect;
 
 public class FaceDetection {
 
+
+
     public static Mat loadImage(String imagePath) {
         Imgcodecs imageCodecs = new Imgcodecs();
         return imageCodecs.imread(imagePath);
@@ -39,7 +41,9 @@ public class FaceDetection {
             Imgproc.rectangle(loadedImage, face.tl(), face.br(), new Scalar(0, 0, 255), 3 );
         }
         saveImage(loadedImage, targetImagePath);
+
     }
 
 
 }
+
